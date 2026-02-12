@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard | Personalized Predictive Healthcare</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      /* Warm, vibrant palette for user home (no solid blue) */
+      --primary: #ff6ec4;      /* pink */
+      --secondary: #ff9a44;    /* warm orange */
+      --accent: #00f5a0;       /* mint / teal accent */
+      --dark: #1b0a2a;         /* deep plum */
+      --light: #fff7ff;        /* very light text */
+      --neon-glow: 0 0 18px rgba(255, 110, 196, 0.8);
+      --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+      --glass: rgba(20, 10, 40, 0.65);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--dark);
+      color: var(--light);
+      font-family: 'Open Sans', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+    }
+
+    /* Animated Gradient Background */
+    .bg-gradient {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* warm multi-color gradient (pink, orange, purple, mint) */
+      background: linear-gradient(-45deg,
+        #1b0a2a,   /* deep plum */
+        #38155a,   /* purple */
+        #ff6ec4,   /* pink */
+        #ff9a44,   /* orange */
+        #00f5a0    /* mint */
+      );
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      z-index: -2;
+    }
+
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .bg-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      opacity: 0.1;
+      z-index: -1;
+    }
+
+    /* Glassmorphism Overlay */
+    .glass-card {
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Navigation - Futuristic Glass Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 0;
+      position: relative;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: white;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--gradient);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--neon-glow);
+    }
+
+    .logo-icon i {
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--light);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      opacity: 0.9;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+      opacity: 1;
+      text-shadow: var(--neon-glow);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links a i {
+      font-size: 1.1rem;
+      margin-right: 5px;
+    }
+
+    .nav-links li {
+      position: relative;
+    }
+
+    .active {
+      color: var(--accent) !important;
+      opacity: 1 !important;
+      text-shadow: var(--neon-glow);
+    }
+
+    .active::after {
+      width: 100% !important;
+    }
+
+    /* User Dashboard Content */
+    .dashboard {
+      margin: 3rem 0;
+    }
+
+    .dashboard-header {
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .dashboard-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, var(--light), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .dashboard-header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Stats Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.4s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(255, 20, 147, 0.2);
+    }
+
+    .stat-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--gradient);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      box-shadow: var(--neon-glow);
+    }
+
+    .stat-icon i {
+      font-size: 1.8rem;
+      color: white;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    /* Quick Actions */
+    .quick-actions {
+      margin: 4rem 0;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .section-title i {
+      color: var(--accent);
+    }
+
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .action-card {
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .action-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 20, 147, 0.05);
+    }
+
+    .action-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: var(--gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      box-shadow: var(--neon-glow);
+    }
+
+    .action-icon i {
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    .action-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .action-desc {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* Recent Predictions */
+    .predictions-section {
+      margin: 4rem 0;
+    }
+
+    .prediction-item {
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .prediction-item:last-child {
+      border-bottom: none;
+    }
+
+    .prediction-icon {
+      width: 45px;
+      height: 45px;
+      border-radius: 12px;
+      background: rgba(255, 20, 147, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .prediction-icon i {
+      color: var(--accent);
+      font-size: 1.2rem;
+    }
+
+    .prediction-content {
+      flex: 1;
+    }
+
+    .prediction-text {
+      margin-bottom: 0.3rem;
+    }
+
+    .prediction-time {
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .dashboard-header h1 {
+        font-size: 2rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .actions-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Animated Background -->
+  <div class="bg-gradient"></div>
+  <div class="bg-particles"></div>
+
+  <div class="container">
+    <!-- Futuristic Navigation -->
+    <nav>
+      <a href="#" class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-heartbeat"></i>
+        </div>
+        <span>HealthPredict AI</span>
+      </a>
+      <ul class="nav-links">
+        <li><a class="active" href="{% url 'UserHome' %}" style="color:deeppink"> <i class="fas fa-home"></i> Home</a>
+        </li>
+        <li><a href="{% url 'view_data' %}" style="color:deeppink"> <i class="fas fa-database"></i> Dataset</a></li>
+        <li><a href="{% url 'training' %}" style="color:deeppink"> <i class="fas fa-chart-bar"></i> Training</a>
+        </li>
+        <li><a href="{% url 'prediction' %}" style="color:deeppink"> <i class="fas fa-bullseye"></i> Prediction</a></li>
+        <li><a href="{% url 'index' %}" style="color:deeppink"> <i class="fas fa-sign-out-alt"></i> Logout</a></li>
+      </ul>
+    </nav>
+
+    <!-- User Dashboard Content -->
+    <div class="dashboard">
+      <div class="dashboard-header">
+        <h1>Welcome to Your Health Dashboard</h1>
+        <p>Get personalized health predictions and insights based on your symptoms and medical history.</p>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="stats-grid">
+        <div class="glass-card stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-heartbeat"></i>
+          </div>
+          <div class="stat-number">{{ prediction_count }}</div>
+          <div class="stat-label">Predictions Made</div>
+        </div>
+
+        <div class="glass-card stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <div class="stat-number">{{ model_accuracy }}%</div>
+          <div class="stat-label">Best Model Accuracy</div>
+        </div>
+
+
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions">
+        <h2 class="section-title"><i class="fas fa-bolt"></i> Quick Actions</h2>
+        <div class="actions-grid">
+          <div class="glass-card action-card" onclick="window.location.href='{% url 'prediction' %}'">
+            <div class="action-icon">
+              <i class="fas fa-bullseye"></i>
+            </div>
+            <h3 class="action-title">New Prediction</h3>
+            <p class="action-desc">Check your symptoms and get health predictions</p>
+          </div>
+
+          <div class="glass-card action-card" onclick="window.location.href='{% url 'view_data' %}'">
+            <div class="action-icon">
+              <i class="fas fa-database"></i>
+            </div>
+            <h3 class="action-title">View Dataset</h3>
+            <p class="action-desc">Explore our comprehensive medical dataset</p>
+          </div>
+
+          <div class="glass-card action-card" onclick="window.location.href='{% url 'training' %}'">
+            <div class="action-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h3 class="action-title">Model Performance</h3>
+            <p class="action-desc">See our prediction model accuracy metrics</p>
+          </div>
+
+
+      </div>
+
+      <!-- Recent Predictions -->
+      <div class="predictions-section">
+        <h2 class="section-title"><i class="fas fa-history"></i> Recent Predictions</h2>
+        <div class="glass-card">
+          {% for log in prediction_logs %}
+          <div class="prediction-item">
+            <div class="prediction-icon">
+              <i class="fas fa-diagnoses"></i>
+            </div>
+            <div class="prediction-content">
+              <p class="prediction-text">Predicted: {{ log.disease }}</p>
+              <p class="prediction-time">{{ log.time }}</p>
+            </div>
+          </div>
+          {% empty %}
+          <p class="prediction-text">No recent predictions found.</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+</body>
+
+</html>

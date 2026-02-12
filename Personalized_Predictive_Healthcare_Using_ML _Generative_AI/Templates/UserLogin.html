@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized Predictive Healthcare Using ML & Generative AI | GATES</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0066ff;
+            --secondary: #00f7ff;
+            --accent: #00ffaa;
+            --dark: #0a192f;
+            --light: #e6f1ff;
+            --neon-glow: 0 0 10px rgba(0, 255, 200, 0.7);
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --glass: rgba(255, 255, 255, 0.05);
+            --error: #ff4d4d;
+            --success: #00cc88;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            font-family: 'Open Sans', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        
+        /* Animated Gradient Background */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, #0a192f, #0f3460, #16213e, #1a1a2e);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            z-index: -2;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        /* Glassmorphism Overlay */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Navigation - Futuristic Glass Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            position: relative;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--neon-glow);
+        }
+        
+        .logo-icon i {
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            opacity: 0.9;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+            opacity: 1;
+            text-shadow: var(--neon-glow);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links a i {
+            font-size: 1.1rem;
+        }
+        
+        /* Form Styling */
+        .form-container {
+            max-width: 500px;
+            margin: 5rem auto;
+            padding: 2.5rem;
+            animation: fadeInUp 0.8s ease;
+        }
+        
+        .form-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            background: linear-gradient(to right, var(--light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+        
+        .input-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .input-container i {
+            position: absolute;
+            left: 15px;
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+        
+        .input-container input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: var(--light);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .input-container input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(0, 255, 200, 0.2);
+        }
+        
+        .input-container input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .btn-submit {
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: none;
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 170, 255, 0.3);
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 170, 255, 0.4);
+        }
+        
+        .btn-reset {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-reset:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent);
+        }
+        
+        .form-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .alert-message {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        .alert-error {
+            background-color: rgba(255, 77, 77, 0.2);
+            border: 1px solid var(--error);
+            color: var(--error);
+        }
+        
+        .alert-success {
+            background-color: rgba(0, 204, 136, 0.2);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .form-title {
+                font-size: 1.8rem;
+            }
+            
+            .form-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .btn-submit, .btn-reset {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-gradient"></div>
+    <div class="bg-particles"></div>
+    
+    <div class="container">
+        <!-- Futuristic Navigation -->
+        <nav>
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <span>HealthPredict AI</span>
+            </a>
+            <div class="nav-links">
+                <a href="{% url 'index' %}"><i class="fas fa-home"></i> Home</a>
+                <a href="{% url 'AdminLogin' %}"><i class="fas fa-user-md"></i> Admin</a>
+                <a href="{% url 'UserLogin' %}"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+                <a href="{% url 'UserRegister' %}"><i class="fas fa-user-plus"></i> Sign Up</a>
+            </div>
+        </nav>
+        
+        <!-- Login Form Section -->
+        <div class="glass-card form-container">
+            <h2 class="form-title">User Login</h2>
+            <form action="{% url 'UserLoginCheck' %}" method="POST">
+                {% csrf_token %}
+
+                <!-- Login ID -->
+                <div class="form-group">
+                    <label for="loginid" class="form-label">Login ID</label>
+                    <div class="input-container">
+                        <i class="fas fa-user"></i>
+                        <input type="text" name="loginid" id="loginid" placeholder="Enter Login ID" required>
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="pswd" class="form-label">Password</label>
+                    <div class="input-container">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" name="pswd" id="pswd" placeholder="Enter Password" required>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="form-buttons">
+                    <button type="submit" class="btn-submit">Login</button>
+                    <button type="reset" class="btn-submit btn-reset">Reset</button>
+                </div>
+
+                <!-- Messages -->
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert-message {% if message.tags == 'error' %}alert-error{% else %}alert-success{% endif %}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+            </form>
+        </div>
+        
+
+    </div>
+</body>
+</html>

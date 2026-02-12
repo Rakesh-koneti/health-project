@@ -1,0 +1,25 @@
+{% extends 'users/userbase.html' %}
+
+{% load static %} {# Load the static tag library here #}
+
+{% block title %}
+User Home
+{% endblock %}
+
+{% block user_home %}
+active
+{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background-image: url("{% static 'assets/img/image7.png' %}");
+        background-size: cover;
+    }
+</style>
+
+<div>
+    <h1 class="text-center">User Home</h1>
+</div>
+{% endblock %}
+

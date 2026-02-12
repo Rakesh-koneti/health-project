@@ -1,0 +1,12 @@
+ABSTRACT/
+BASEPAPER/
+DOCUMENTS/
+HealthPredict_AI_Project.zip
+*.doc
+*.docx
+*.pdf
+*.zip
+Personalized_Predictive_Healthcare_Using_ML _Generative_AI/media/
+*.pkl
+*.csv
+

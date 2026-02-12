@@ -1,0 +1,55 @@
+{% extends 'users/userbase.html' %}
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="text-center text-primary">Disease Prediction Result</h2>
+
+    <div class="card mt-4 shadow">
+        <div class="card-header bg-success text-white text-center">
+            Prediction Outcome
+        </div>
+        <div class="card-body text-center">
+            <h4 class="card-title">Predicted Disease:</h4>
+            <p class="display-4 text-danger font-weight-bold">{{ predicted_disease }}</p>
+
+            <hr>
+
+            <h5 class="text-info">Recommended Precautions</h5>
+            {% if precautions %}
+                <ul class="list-group">
+                    {% for precaution in precautions %}
+                        <li class="list-group-item">{{ precaution }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-muted">No specific precautions available.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'prediction' %}" class="btn btn-primary">Predict Again</a>
+    </div>
+</div>
+
+<style>
+    .container {
+        max-width: 600px;
+    }
+    .card {
+        border-radius: 15px;
+    }
+    .card-header {
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .display-4 {
+        font-size: 30px;
+    }
+    .list-group-item {
+        font-size: 18px;
+        background-color: #f8f9fa;
+    }
+</style>
+
+{% endblock %}

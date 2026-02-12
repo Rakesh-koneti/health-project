@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css"> 
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>
+        Multiple Disease Prediction Based on User Symptoms using Machine Learning Algorithms 
+    </title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="{% static 'assets/img/favicon1.png' %}" rel="icon">
+    <link href="{% static 'assets/img/apple_touch_icon.png' %}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+    <!-- Template Main CSS File -->
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+    <!-- =======================================================
+    * Template Name: Kelly
+    * Updated: oct 16 2023 with Bootstrap v5.3.1
+    * Template URL: https://bootstrapmade.com/kelly-free-bootstrap-cv-resume-html-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+
+<body>
+   
+
+
+  <!-- ======= Header ======= -->
+  <style>
+    #header {
+      background-color: #49757E; /* Replace "your-desired-color" with the color you want */
+       /* Change the text color to contrast with the background */
+    }
+  </style>
+  <header id="header" class="fixed-top">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+
+      <h1 class="logo me-auto me-lg-0"><a href="index.html" style="color:aqua">MULTIPLE DISEASE PREDICTION</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a href="{% url 'AdminHome' %}"  style="color:aqua""> 🏠HOME</a></li>
+          <li><a href="{% url 'ActivaUsers' %}"style="color:aqua" >👥USER LIST</a></li>
+          <li><a href="{% url 'index' %}"style="color:aqua"> 🚪LOGOUT</a></li>
+          
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+
+      
+
+    </div>
+    
+
+  </header>
+  <br>
+    <br>
+    <br>
+  {% block content%}
+{% endblock %}
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center"><br>
+    <style>
+      body {
+          background-image: url("{% static 'assets/img/image1.jpg' %}");
+          background-size: cover; /* This will cover the entire element */
+          width: 100%; /* Set the width to 100% of the viewport */
+          height: 150%;
+          background-position: center;
+      }
+      
+          </style>
+          
+   
+  </section><!-- End Hero -->
+
+  <table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Sno</th>
+            <th scope="col">Name</th>
+            <th scope="col">Login Id</th>
+            <th scope="col">Mobile</th>
+            <th scope="col">Email</th>
+            <th scope="col">Locality</th>
+            <th scope="col">Status</th>
+            <th scope="col">Activate</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in data %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.loginid }}</td>
+            <td>{{ user.mobile }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.locality }}</td>
+            <td>{{ user.status }}</td>
+
+            {% if user.status == 'waiting' %}
+            <td>
+                <a class="btn-link" href="/ActivaUsers/?uid={{ user.id }}"
+                    style="color:DARKBLUE">Activate</a>
+            </td>
+            {% else %}
+            <td> Activated</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+ 
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/waypoints/noframework.waypoints.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized Predictive Healthcare Using ML & Generative AI | GATES</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Warm, colorful palette (less blue) */
+            --primary: #ff6ec4;      /* pink */
+            --secondary: #ff9a44;    /* warm orange */
+            --accent: #00f5a0;       /* mint / teal accent */
+            --dark: #1b0a2a;         /* deep plum */
+            --light: #fff7ff;        /* very light text */
+            --neon-glow: 0 0 18px rgba(255, 110, 196, 0.8);
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --glass: rgba(20, 10, 40, 0.65);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            font-family: 'Open Sans', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        
+        /* Animated Gradient Background */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* multi-color animated gradient background (no solid blue) */
+            background: linear-gradient(-45deg,
+              #1b0a2a,   /* deep plum */
+              #38155a,   /* purple */
+              #ff6ec4,   /* pink */
+              #ff9a44,   /* orange */
+              #00f5a0    /* mint */
+            );
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            z-index: -2;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            
+            background-size: cover;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        /* Glassmorphism Overlay */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Navigation - Futuristic Glass Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            position: relative;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--neon-glow);
+        }
+        
+        .logo-icon i {
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            opacity: 0.9;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+            opacity: 1;
+            text-shadow: var(--neon-glow);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links a i {
+            font-size: 1.1rem;
+        }
+        
+        /* Hero Section - Animated & Interactive */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+            position: relative;
+            padding: 5rem 0;
+        }
+        
+        .hero-content {
+            max-width: 650px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s forwards;
+            opacity: 0;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            animation: fadeInUp 1s ease 0.4s forwards;
+            opacity: 0;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 20px rgba(0, 200, 255, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 200, 255, 0.6);
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            color: var(--accent);
+        }
+        
+        .hero-image {
+            flex: 0 0 400px;
+            width: 400px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-image-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            padding: 0;
+            box-sizing: border-box;
+            background: radial-gradient(circle at top, rgba(255, 110, 196, 0.35), transparent 65%),
+                        radial-gradient(circle at bottom, rgba(0, 245, 160, 0.35), transparent 60%);
+            box-shadow: 0 0 45px rgba(255, 110, 196, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image-inner img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        
+        /* Stats Section - Glowing Cards */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 5rem 0;
+        }
+        
+        .stat-card {
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 200, 255, 0.2);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        /* Features Section - 3D Hover Effect */
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.8;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+        
+        .feature-card {
+            padding: 2.5rem 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 200, 0.1) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.6s ease;
+            opacity: 0;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+        
+        .feature-card:hover::before {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--neon-glow);
+        }
+        
+        .feature-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card p {
+            opacity: 0.8;
+        }
+        
+        /* Model Performance Section */
+        .model-performance {
+            margin: 8rem 0;
+        }
+        
+        .model-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .model-card {
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .model-name {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .model-metric {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .metric-name {
+            text-align: left;
+            opacity: 0.8;
+        }
+        
+        .metric-value {
+            text-align: right;
+            font-weight: 600;
+        }
+        
+        /* Research Team Section */
+        .team-section {
+            margin: 6rem 0;
+        }
+        
+        .team-members {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+        
+        .team-card {
+            width: 250px;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .team-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--gradient);
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+        
+        .team-name {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-role {
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+        
+        /* Footer - Sleek & Modern */
+        footer {
+            margin-top: 8rem;
+            padding: 4rem 0 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--gradient);
+            transform: translateY(-3px);
+            box-shadow: var(--neon-glow);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero-image {
+                opacity: 0.4;
+                z-index: -1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .hero {
+                text-align: center;
+                padding: 7rem 0;
+            }
+            
+            .hero-content {
+                margin: 0 auto;
+            }
+            
+            .cta-buttons {
+                justify-content: center;
+            }
+            
+            .hero-image {
+                display: none;
+            }
+            
+            .team-members {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .hero-image {
+                flex: 0 0 320px;
+                width: 320px;
+                height: 320px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .btn {
+                padding: 0.8rem 1.5rem;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-gradient"></div>
+    <div class="bg-particles"></div>
+    
+    <div class="container">
+        <!-- Futuristic Navigation -->
+        <nav>
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <img src="{% static 'assets/img/favicon1.png' %}" alt="GATES Logo" style="width: 32px; height: 32px; border-radius: 8px;">
+                </div>
+                <span>HealthPredict AI</span>
+            </a>
+            <div class="nav-links">
+                <a href="{% url 'index' %}"><i class="fas fa-home"></i> Home</a>
+                <a href="{% url 'AdminLogin' %}"><i class="fas fa-user-md"></i> Admin</a>
+                <a href="{% url 'UserLogin' %}"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+                <a href="{% url 'UserRegister' %}"><i class="fas fa-user-plus"></i> Sign Up</a>
+            </div>
+        </nav>
+        
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Personalized Predictive Healthcare Using ML & Generative AI</h1>
+                <p>A research project from GATES Institute of Technology that combines machine learning and generative AI to deliver accurate disease predictions and personalized health insights based on symptoms, age, and gender.</p>
+            </div>
+            
+            <!-- Project logo / illustration on the right -->
+            <div class="hero-image">
+                <div class="hero-image-inner">
+                    <img src="{% static 'assets/img/healthpredict_logo.jpeg' %}" alt="HealthPredict AI Logo">
+                </div>
+            </div>
+        </section>
+        
+        
+        
+       
+    </div>
+</body>
+</html>
